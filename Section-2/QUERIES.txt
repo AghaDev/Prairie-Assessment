@@ -1,0 +1,83 @@
+CREATE TABLE Mentors (
+    SSN INT PRIMARY KEY,
+    First_Name VARCHAR NOT NULL,
+    Last_Name VARCHAR NOT NULL,
+    DOB DATE,
+    Seniority_Level VARCHAR NOT NULL,
+    Salary INT NOT NULL,
+    Office VARCHAR NOT NULL,
+    Topics_Speciality VARCHAR NOT NULL,
+    Dep_ID INT NOT NULL, FOREIGN KEY(Dep_ID) REFERENCES Department(Dep_ID)
+    Cohort_ID INT NOT NULL FOREIGN KEY(Cohort_ID) REFERENCES Cohort(Cohort_ID)
+);
+
+CREATE TABLE Students (
+    SSN INT PRIMARY KEY,
+    First_Name VARCHAR NOT NULL,
+    Last_Name VARCHAR NOT NULL,
+    DOB DATE,
+    Several_Skills,
+    Cohort_ID INT NOT NULL FOREIGN KEY(Cohort_ID) REFERENCES Cohort(Cohort_ID)
+);
+
+CREATE TABLE Cohort (
+    Cohort_ID INT NOT NULL PRIMARY KEY,
+    Number INT NOT NULL,
+    Start_Date DATE,
+    End_Date DATE
+    );
+
+
+CREATE TABLE Topic (
+    Topic_ID INT NOT NULL PRIMARY KEY,
+    Title VARCHAR NOT NULL,
+    Description VARCHAR NOT NULL,
+    Mentors_SSN INT NOT NULL FOREIGN KEY(Mentors_SSN) REFERENCES Mentors(Mentors_SSN)
+);
+
+CREATE TABLE Department (
+    Dep_ID INT NOT NULL PRIMARY KEY,
+    Name VARCHAR NOT NULL,
+    Office VARCHAR NOT NULL,
+    Topic_Speciality VARCHAR NOT NULL
+);
+
+
+
+INSERT INTO Mentors(SSN,First_Name,Last_Name,DOB,Seniority_Level,Salary,Office,Topics_Speciality,Dep_ID,Cohort_ID)
+VALUES(1,Zeinab,Qassem,10/10/2010,senior,1000,tech office,tech,10,B10),(2,Hadeel,Deeb,10/10/2010,senior,1000,eng office,english,20,B10),
+(3,Peter,Faddoul,10/10/2010,senior,1000,peda office,pedagogy,30,B10);
+
+
+INSERT INTO Students(SSN,First_Name,Last_Name,DOB,Several_Skills,Cohort_ID)
+VALUES(1,Mohammad,Al Agha,08/08/1996,nothing,B10),(2,Ali,Al Ahmad,08/08/1996,nothing,B10),(3,Jana,Sakr,08/08/1996,nothing,B10);
+
+INSERT INTO Cohort(Cohort_ID,Number,Start_Date,End_Date)
+VALUES(B10,10,2023,2024),VALUES(T04,4,2023,2024);
+
+
+INSERT INTO Topic(Topic_ID,Title,Description,Mentors_SSN)
+VALUES(25,JavaScript,Intro to JS,1),(45,Ideoms,Intro to Ideoms,2),
+(65,Figma,Intro to Figma,3);
+
+INSERT INTO Department(Dep_ID,Name,Office,Topic_Speciality)
+VALUES(10,Technology,T14,Technology), (20,English,E24,English),
+(30,Pedagogy,P34,Pedagogy);
+
+SELECT First_Name,Last_Name,Seniority_Level
+FROM Mentors;
+
+SELECT *
+FROM Mentors
+WHERE Office = 333;
+
+SELECT *
+FROM Mentors
+WHERE Salary>1000;
+
+SELECT First_Name,Last_Name,Seniority_Level
+FROM Mentors
+WHERE Salary>1000;
+
+SELECT First_Name,Last_Name
+FROM Mentors Inner JOIN Department
